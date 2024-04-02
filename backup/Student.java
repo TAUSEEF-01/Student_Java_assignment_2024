@@ -2,17 +2,14 @@ import java.util.*;
 
 public class Student {
     public static int student_cnt;
-    public static RandomGenerator random;// = new RandomGenerator();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         Map<Integer, Student_info> student = new HashMap<>();
-        random = new RandomGenerator();
         student_cnt = 1;
 
         Boolean running = true;
-        studentPart(sc, student);
 
         while (running == true) {
             running = mainLoop(sc, running, student);
@@ -20,46 +17,40 @@ public class Student {
     }
 
     public static boolean mainLoop(Scanner sc, boolean running, Map<Integer, Student_info> student) {
-        // System.out.println("1. Input student information.");
-        System.out.println("1. Show student information.");
-        System.out.println("2. Show GPA rank list.");
-        System.out.println("3. Show Course based rank list.");
-        System.out.println("4. EXIT.");
+        System.out.println("1. Input student information.");
+        System.out.println("2. Show student information.");
+        System.out.println("3. Show GPA rank list.");
+        System.out.println("4. Show Course based rank list.");
+        System.out.println("5. EXIT.");
 
         System.out.println();
-
-
-        // studentPart(sc, student);
 
         System.out.print("Your choice: ");
 
         int n = sc.nextInt();
         clearScreen();
         switch (n) {
-            // case 1:
-            //     System.out.println();
-            //     studentPart(sc, student);
-            //     break;
-
             case 1:
                 System.out.println();
-                showStudentInfo(sc, student);
-                clearScreen();
+                studentPart(sc, student);
                 break;
 
             case 2:
                 System.out.println();
-                GPArankList(sc, student);
-                clearScreen();
+                showStudentInfo(sc, student);
                 break;
 
             case 3:
                 System.out.println();
-                courseRankList(sc, student);
-                clearScreen();
+                GPArankList(sc, student);
                 break;
 
             case 4:
+                System.out.println();
+                courseRankList(sc, student);
+                break;
+
+            case 5:
                 running = false;
                 break;
 
@@ -73,135 +64,106 @@ public class Student {
     }
 
     public static void studentPart(Scanner sc, Map<Integer, Student_info> student) {
-        // while (true) {
-            // System.out.println("1. Create students.");
-            // System.out.println("2. Update information of a student.");
-            // System.out.println("3. Return.");
+        while (true) {
+            System.out.println("1. Create students.");
+            System.out.println("2. Update information of a student.");
+            System.out.println("3. Return.");
 
-            // System.out.println();
-            // System.out.print("Your choice: ");
-            // int n = sc.nextInt();
+            System.out.println();
+            System.out.print("Your choice: ");
+            int n = sc.nextInt();
 
-            // int id;
+            int id;
 
-            /* */
-            createStudentDatabase(sc, student);
+            switch (n) {
+                case 1:
+                    System.out.println();
+                    clearScreen();
 
-            // id = random.generateRandomInteger(1, student_cnt);
+                    createStudentDatabase(sc, student);
+                    break;
 
+                case 2:
+                    System.out.print("Input student id: ");
+                    id = sc.nextInt();
+                    System.out.println();
+                    if (student.get(id) == null) {
+                        System.out.println("Student is not created.");
+                        System.out.println();
+                        continue;
+                    }
+                    clearScreen();
 
-            for(int i=1; i<=20; i++)
-            updateStudentInfo(sc, student, i);
+                    updateStudentInfo(sc, student, id);
+                    break;
 
-            /* */
+                case 3:
+                    System.out.println();
+                    clearScreen();
+                    return;
 
-            
-
-            // switch (n) {
-            //     case 1:
-            //         System.out.println();
-            //         clearScreen();
-
-            //         createStudentDatabase(sc, student);
-            //         break;
-
-            //     case 2:
-            //         System.out.print("Input student id: ");
-            //         // id = sc.nextInt();
-
-            //         // random ------------>
-            //         id = random.generateRandomInteger(1, student_cnt);
-
-            //         System.out.println();
-            //         if (student.get(id) == null) {
-            //             System.out.println("Student is not created.");
-            //             System.out.println();
-            //             continue;
-            //         }
-            //         clearScreen();
-
-            //         updateStudentInfo(sc, student, id);
-            //         break;
-
-            //     case 3:
-            //         System.out.println();
-            //         clearScreen();
-            //         return;
-
-            //     default:
-            //         break;
-            // }
-        // }
+                default:
+                    break;
+            }
+        }
 
     }
 
     // creating student database ------->
     public static void createStudentDatabase(Scanner sc, Map<Integer, Student_info> student) {
-        // System.out.print("Enter number of students: ");
-        // int n = sc.nextInt();
-        // System.out.println();
+        System.out.print("Enter number of students: ");
+        int n = sc.nextInt();
+        System.out.println();
 
-        for (int i = 0; i < 20; i++) {
-            Student_info s = new Student_info("", "", "", i+1);
+        for (int i = 0; i < n; i++) {
+            Student_info s = new Student_info("", "", "");
 
             student.put(student_cnt, s);
             student_cnt++;
         }
 
-        // System.out.println("Students created!");
-        // System.out.println();
-        // clearScreen();
-
-
+        System.out.println("Students created!");
+        System.out.println();
+        clearScreen();
     }
 
     public static void updateStudentInfo(Scanner sc, Map<Integer, Student_info> student, int id) {
 
-        // while (true) {
-            // System.out.println("1. Update basic information.");
-            // System.out.println("2. Update Courses.");
-            // System.out.println("3. Update Marks.");
-            // System.out.println("4. Return.");
+        while (true) {
+            System.out.println("1. Update basic information.");
+            System.out.println("2. Update Courses.");
+            System.out.println("3. Update Marks.");
+            System.out.println("4. Return.");
 
+            System.out.println();
+            System.out.print("Your choice: ");
+            int n = sc.nextInt();
 
-            for(int i=1; i<=20; i++)
-            {
-                updateBasic_StudentInfo(sc, student, i);
-                updateCourse_StudentInfo(sc, student, i);
-                updateMarks_StudentInfo(sc, student, i);
+            switch (n) {
+                case 1:
+                    clearScreen();
+                    updateBasic_StudentInfo(sc, student, id);
+                    break;
+
+                case 2:
+                    clearScreen();
+                    updateCourse_StudentInfo(sc, student, id);
+                    break;
+
+                case 3:
+                    clearScreen();
+                    updateMarks_StudentInfo(sc, student, id);
+                    break;
+
+                case 4:
+                    System.out.println();
+                    clearScreen();
+                    return;
+
+                default:
+                    break;
             }
-            
-
-            // System.out.println();
-            // System.out.print("Your choice: ");
-            // int n = sc.nextInt();
-
-            // switch (n) {
-            //     case 1:
-            //         clearScreen();
-            //         updateBasic_StudentInfo(sc, student, id);
-            //         break;
-
-            //     case 2:
-            //         clearScreen();
-            //         updateCourse_StudentInfo(sc, student, id);
-            //         break;
-
-            //     case 3:
-            //         clearScreen();
-            //         updateMarks_StudentInfo(sc, student, id);
-            //         break;
-
-            //     case 4:
-            //         System.out.println();
-            //         clearScreen();
-            //         return;
-
-            //     default:
-            //         break;
-            // }
-            // return;
-        // }
+        }
     }
 
     // updating student information ------->
@@ -214,23 +176,21 @@ public class Student {
         }
 
         Student_info s = student.get(i);
-        // System.out.println("Enter basic information for student id no: " + i);
+        System.out.println("Enter basic information for student id no: " + i);
 
         String name = null, roll = null, email = null;
         while (true) {
             if (name == null) {
-                // System.out.print("Enter your name: ");
-                // name = sc.next();
-                name = random.generateRandomString(random.generateRandomInteger(5, 10));
+                System.out.print("Enter your name: ");
+                name = sc.next();
                 continue;
             }
 
             if (roll == null) {
-                // System.out.print("Enter your roll: ");
+                System.out.print("Enter your roll: ");
 
                 boolean flag = true;
-                // String r = sc.next();
-                String r = random.generateRandomStringINT(2);
+                String r = sc.next();
                 for (int j = 1; j <= i; j++) {
                     String str = student.get(j).getRoll();
                     if (str.length() == r.length()) {
@@ -254,13 +214,10 @@ public class Student {
             }
 
             if (email == null) {
-                // System.out.print("Enter your email: ");
+                System.out.print("Enter your email: ");
 
                 boolean flag = true;
-                // String e = sc.next();
-                String e = random.generateRandomString(random.generateRandomInteger(5, 9));
-                e += "@gmail.com";
-
+                String e = sc.next();
                 for (int j = 1; j <= i; j++) {
                     String str = student.get(j).getEmail();
                     if (str.length() == e.length()) {
@@ -289,8 +246,8 @@ public class Student {
         s.setRoll(roll);
         s.setEmail(email);
 
-        // System.out.println();
-        // clearScreen();
+        System.out.println();
+        clearScreen();
     }
 
     public static void updateCourse_StudentInfo(Scanner sc, Map<Integer, Student_info> student, int i) {
@@ -302,16 +259,15 @@ public class Student {
         }
 
         Student_info s = student.get(i);
-        // System.out.println("Enter course information for student id no: " + i);
+        System.out.println("Enter course information for student id no: " + i);
 
-        // s.printAllCourses();
+        s.printAllCourses();
         int cnt = 0;
         int arr[] = new int[4];
 
         while (cnt < 3) {
-            // System.out.print("Select " + (cnt + 1) + " no Major Course by selecting the course id: ");
-            // int crc = sc.nextInt();
-            int crc = random.generateRandomInteger(1, 5);
+            System.out.print("Select " + (cnt + 1) + " no Major Course by selecting the course id: ");
+            int crc = sc.nextInt();
 
             if (crc > 5 || crc < 1) {
                 continue;
@@ -329,13 +285,10 @@ public class Student {
             }
         }
 
-        while (cnt < 4) {
-            // System.out.print("Select 1 Optional course by selecting the course id: ");
-            int crc = random.generateRandomInteger(1, 5);
-
-            if (crc > 5 || crc < 1) {
-                continue;
-            }
+        int crc;
+        while (true) {
+            System.out.print("Select 1 Optional course by selecting the course id: ");
+            crc = sc.nextInt();
 
             boolean flag = true;
             for (int j = 0; j < 3; j++) {
@@ -343,19 +296,17 @@ public class Student {
                     flag = false;
                 }
             }
+
             if (flag == true)
-            {
-                arr[cnt] = crc;
                 break;
-            }
-                
         }
-        
-        // System.out.println();
+
+        arr[cnt] = crc;
+        System.out.println();
 
         s.setCourses(arr[0], arr[1], arr[2], arr[3]);
-        // clearScreen();
-        // System.out.println();
+        clearScreen();
+        System.out.println();
 
         evaluationInfo(sc, student, i);
     }
@@ -369,31 +320,31 @@ public class Student {
         }
 
         Student_info s = student.get(i);
-        // System.out.println("Enter marks information for student id no: " + i);
+        System.out.println("Enter marks information for student id no: " + i);
 
         int[] arr = s.getCourses();
 
-        // System.out.println("Input obtained marks for courses: ");
+        System.out.println("Input obtained marks for courses: ");
         for (int j = 0; j < 4; j++) {
-            // System.out.println("Input marks for " + s.courseName(arr[j]) + " course: ");
+            System.out.println("Input marks for " + s.courseName(arr[j]) + " course: ");
             s.setGrades(arr[j]);
         }
-        // System.out.println();
-        // clearScreen();
+        System.out.println();
+        clearScreen();
     }
 
     public static void evaluationInfo(Scanner sc, Map<Integer, Student_info> student, int id) {
         Student_info s = student.get(id);
 
         s.setAllEvaluation();
-        // while (true) {
-        //     System.out.println("Type 0 to return.");
-        //     int n = sc.nextInt();
-        //     if (n == 0) {
-        //         clearScreen();
-        //         return;
-        //     }
-        // }
+        while (true) {
+            System.out.println("Type 0 to return.");
+            int n = sc.nextInt();
+            if (n == 0) {
+                clearScreen();
+                return;
+            }
+        }
     }
 
     // showing student information ------>
@@ -572,10 +523,9 @@ public class Student {
     // GPA rankList ------->
     public static void GPArankList(Scanner sc, Map<Integer, Student_info> student) {
         RankListGpa rank = new RankListGpa(student);
-        rank.rankWithInfo();
 
         while (true) {
-            // rank.rankWithInfo();
+            rank.rankWithInfo();
 
             System.out.println("Press 0 to return.");
             int press = sc.nextInt();
@@ -590,10 +540,9 @@ public class Student {
     // Course based rankList ------->
     public static void courseRankList(Scanner sc, Map<Integer, Student_info> student) {
         RankListCourse rank = new RankListCourse(student);
-        rank.rankWithInfo();
 
         while (true) {
-            // rank.rankWithInfo();
+            rank.rankWithInfo();
 
             System.out.println("Press 0 to return.");
             int press = sc.nextInt();
@@ -621,9 +570,8 @@ class Student_info {
     private int gradeArray[];
     private int coursesArr[];
     allEvaluation allEva;
-    private int ID;
 
-    public Student_info(String n, String r, String e, int id) {
+    public Student_info(String n, String r, String e) {
         this.name = n;
         this.roll = r;
         this.email = e;
@@ -637,17 +585,6 @@ class Student_info {
         }
 
         setCourses(1, 2, 3, 4);
-        set_student_id(id);
-    }
-
-    public void set_student_id(int id)
-    {
-        this.ID = id;
-    }
-
-    public int get_student_id()
-    {
-        return this.ID;
     }
 
     public Student_info() {
@@ -717,21 +654,17 @@ class Student_info {
 
     public void setGrades(int CourseId) {
 
-        RandomGenerator random = new RandomGenerator();
-        // Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         int total = 0;
-
         Map<Integer, Integer> map = getAllEvaluation();
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            // System.out.print(
-            //         "Enter marks for " + allEva.evaluationName(entry.getKey()) + "out of " + entry.getValue() + ": ");
-
-            int range = entry.getValue();
-            int val = random.generateRandomInteger(0, range);
+            System.out.print(
+                    "Enter marks for " + allEva.evaluationName(entry.getKey()) + "out of " + entry.getValue() + ": ");
+            int val = sc.nextInt();
             total += val;
         }
-        // System.out.println("Total marks: " + total);
-        // System.out.println();
+        System.out.println("Total marks: " + total);
+        System.out.println();
         this.gradeArray[CourseId] = total;
     }
 
@@ -752,17 +685,11 @@ class Student_info {
         for (int i = 1; i < 10; i++) {
             if (gradeArray[i] == -1)
                 continue;
-                else
-                {
-                    a[pos] = gradeArray[i];
-                    pos++;
-                }
-                
-                if(pos == 4)
-                break;
+            a[pos] = gradeArray[i];
+            pos++;
         }
         double grade = calculateGrade.calculateGrade(a);
-        System.out.printf("Obtained grade: %-10.2f", grade);
+        System.out.println("Obtained grade: " + grade);
         System.out.println();
     }
 
@@ -772,14 +699,8 @@ class Student_info {
         for (int i = 1; i < 10; i++) {
             if (gradeArray[i] == -1)
                 continue;
-            else
-            {
-                a[pos] = gradeArray[i];
-                pos++;
-            }
-            
-            if(pos == 4)
-            break;
+            a[pos] = gradeArray[i];
+            pos++;
         }
         double grade = calculateGrade.calculateGrade(a);
         return grade;
@@ -837,7 +758,7 @@ class EnrollCourse extends Course {
 
     public void setCourses(String r, int a, int b, int c, int d) {
         this.roll = r;
-        enrolledCourse.put(r, new int[] { a, b, c, d });
+        enrolledCourse.put(roll, new int[] { a, b, c, d });
     }
 
     public void getCourses() {
@@ -873,7 +794,6 @@ class allEvaluation {
     String str[];
     Map<Integer, Integer> map;
     int total1, total2, total3, total;
-    RandomGenerator random;
 
     allEvaluation() {
         mid = new Midterm();
@@ -893,8 +813,6 @@ class allEvaluation {
         total3 = 0;
         total = 0;
 
-        random = new RandomGenerator();
-
     }
 
     public String evaluationName(int n) {
@@ -902,102 +820,81 @@ class allEvaluation {
     }
 
     public void chooseWay() {
-        // Scanner sc = new Scanner(System.in);
-
-
-        int choose = random.generateRandomInteger(0, 1);
+        Scanner sc = new Scanner(System.in);
 
         total1 = 0;
         total2 = 0;
         total3 = 0;
         total = 0;
 
+        while (true) {
+            System.out.println("1. To choose from Midterm.");
+            System.out.println("2. To choose from Regular Assessment.");
+            System.out.println("3. To choose from Final.");
 
-        if(choose == 0)
-        {
-            total1 = 30;
-            total2 = 10;
-            total3 = 60;
+            System.out.print("Your choice: ");
+            int choose = sc.nextInt();
+            System.out.println();
+
+            if (choose > 3 || choose < 1) {
+                continue;
+            }
+
+            if (choose == 1) {
+                mid.printMarks();
+                System.out.print("Your choice: ");
+                int option = sc.nextInt();
+
+                if (option == 1)
+                    total1 += 20;
+                else if (option == 2)
+                    total1 += 30;
+                else if (option == 3)
+                    total1 += 40;
+            } else if (choose == 2) {
+                rgs.printMarks();
+                System.out.print("Your choice: ");
+                int option = sc.nextInt();
+                if (option == 1)
+                    total2 += 5;
+                else if (option == 2)
+                    total2 += 5;
+                else if (option == 3)
+                    total2 += 10;
+            } else if (choose == 3) {
+                fnl.printMarks();
+                System.out.print("Your choice: ");
+                int option = sc.nextInt();
+
+                if (option == 1)
+                    total3 += 60;
+                else if (option == 2)
+                    total3 += 70;
+            }
+
+            total = total1 + total2 + total3;
+
+            System.out.println("Total: " + total);
+            System.out.println();
+
+            if (total > 100) {
+                System.out.println("Total reset to 0.");
+                total = 0;
+                total1 = 0;
+                total2 = 0;
+                total3 = 0;
+            } else if (total == 100) {
+                map.put(1, total1);
+                map.put(2, total2);
+                map.put(3, total3);
+
+                System.out.println();
+                for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                    System.out.println(str[entry.getKey()] + ": " + entry.getValue());
+                }
+                break;
+            }
         }
-        else if(choose == 1)
-        {
-            total1 = 30;
-            total2 = 0;
-            total3 = 70;
-        }
-
-        map.put(1, total1);
-        map.put(2, total2);
-        map.put(3, total3);
-
-        // while (true) {
-        //     System.out.println("1. To choose from Midterm.");
-        //     System.out.println("2. To choose from Regular Assessment.");
-        //     System.out.println("3. To choose from Final.");
-
-        //     System.out.print("Your choice: ");
-        //     int choose = sc.nextInt();
-        //     System.out.println();
-
-        //     if (choose > 3 || choose < 1) {
-        //         continue;
-        //     }
-
-        //     if (choose == 1) {
-        //         mid.printMarks();
-        //         System.out.print("Your choice: ");
-        //         int option = sc.nextInt();
-
-        //         if (option == 1)
-        //             total1 += 20;
-        //         else if (option == 2)
-        //             total1 += 30;
-        //         else if (option == 3)
-        //             total1 += 40;
-        //     } else if (choose == 2) {
-        //         rgs.printMarks();
-        //         System.out.print("Your choice: ");
-        //         int option = sc.nextInt();
-        //         if (option == 1)
-        //             total2 += 5;
-        //         else if (option == 2)
-        //             total2 += 5;
-        //         else if (option == 3)
-        //             total2 += 10;
-        //     } else if (choose == 3) {
-        //         fnl.printMarks();
-        //         System.out.print("Your choice: ");
-        //         int option = sc.nextInt();
-
-        //         if (option == 1)
-        //             total3 += 60;
-        //         else if (option == 2)
-        //             total3 += 70;
-        //     }
-
-        //     total = total1 + total2 + total3;
-
-        //     System.out.println("Total: " + total);
-        //     System.out.println();
-
-        //     if (total > 100) {
-        //         System.out.println("Total reset to 0.");
-        //         total = 0;
-        //         total1 = 0;
-        //         total2 = 0;
-        //         total3 = 0;
-        //     } else if (total == 100) {
-        //         map.put(1, total1);
-        //         map.put(2, total2);
-        //         map.put(3, total3);
-
-        //         System.out.println();
-        //         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-        //             System.out.println(str[entry.getKey()] + ": " + entry.getValue());
-        //         }
-        //         break;
-        //     }
-        // }
 
     }
 
@@ -1232,31 +1129,25 @@ class RankListGpa {
     }
 
     public void rankWithInfo() {
-        int rank = 1;
-        System.out.println();
         System.out.println("Ranked Students:");
-        System.out.println("|-------------------------------------------------------------------------------------------------|");
-        System.out.printf("| %-5s  | %-20s | %-10s | %-10s | %-20s      | %-10s|\n", "Rank", "Name", "ID", "Roll", "Email", "Total GPA");
-        System.out.println("|-------------------------------------------------------------------------------------------------|");
+        System.out.println("------------------------------------------------------------");
+        System.out.printf("%-20s %-10s %-20s %-10s\n", "Name", "Roll", "Email", "Total GPA");
+        System.out.println("------------------------------------------------------------");
 
         for (Map.Entry<Double, Vector<Student_info>> entry : rank_List.entrySet()) {
-            
             double gpa = entry.getKey();
             Vector<Student_info> studentsGrade = entry.getValue();
             for (Student_info s : studentsGrade) {
                 String name = s.getName();
                 String roll = s.getRoll();
                 String email = s.getEmail();
-                int id = s.get_student_id();
 
-                System.out.printf("| %-5s  | %-20s | %-10s | %-10s | %-20s      | %-10.2f|\n", rank, name, id, roll, email, gpa);
-                rank++;
+                System.out.printf("%-20s %-10s %-20s %-10.2f\n", name, roll, email, gpa);
             }
-
         }
 
-        System.out.println("|-------------------------------------------------------------------------------------------------|");
-        System.out.println();
+        System.out.println("------------------------------------------------------------");
+
     }
 }
 
@@ -1286,100 +1177,28 @@ class RankListCourse {
         }
     }
 
-    private Vector<Student_info> sorted(Vector<Student_info> studentsGrade) {
-
-        Map<Double, Student_info> rank_List2 = new TreeMap<>(Collections.reverseOrder());;
-        for (int i = 0; i < studentsGrade.size(); i++) {
-            double gpa = studentsGrade.get(i).getGradeVal();
-            rank_List2.put(gpa, studentsGrade.get(i));
-        }
-        
-        Vector<Student_info> store = new Vector<>();
-        for (Map.Entry<Double, Student_info> entry : rank_List2.entrySet()) {
-            Student_info s = entry.getValue();
-            store.add(s);
-        }
-
-        return store;
-
-    }
-
     public void rankWithInfo() {
-        
         for (Map.Entry<Integer, Vector<Student_info>> entry : rank_List.entrySet()) {
-            int rank = 1;
             int courseId = entry.getKey();
-            System.out.println();
-            System.out.println();
-            System.out.println("Course name: " + enrollCrc.getCourseName(courseId));
-            System.out.println();
+            System.out.println("Course id: " + enrollCrc.getCourseName(courseId));
 
             System.out.println("Ranked Students:");
-            System.out.println("|-------------------------------------------------------------------------------------------------|");
-            System.out.printf("| %-5s  | %-20s | %-10s | %-10s | %-20s      | %-10s|\n", "Rank", "Name", "ID", "Roll", "Email", "Total GPA");
-            System.out.println("|-------------------------------------------------------------------------------------------------|");
+            System.out.println("------------------------------------------------------------");
+            System.out.printf("%-20s %-10s %-20s %-10s\n", "Name", "Roll", "Email", "Total GPA");
+            System.out.println("------------------------------------------------------------");
 
-            Vector<Student_info> sGrade = entry.getValue();
-            Vector<Student_info> studentsGrade = sorted(sGrade);
+            Vector<Student_info> studentsGrade = entry.getValue();
             for (Student_info s : studentsGrade) {
                 String name = s.getName();
                 String roll = s.getRoll();
                 String email = s.getEmail();
                 double gpa = s.getGradeVal();
-                int id = s.get_student_id();
 
-                System.out.printf("| %-5s  | %-20s | %-10s | %-10s | %-20s      | %-10.2f|\n", rank, name, id, roll, email, gpa);
-                rank++;
+                System.out.printf("%-20s %-10s %-20s %-10.2f\n", name, roll, email, gpa);
+                System.out.println();
             }
-            System.out.println("|-------------------------------------------------------------------------------------------------|");
         }
 
-        
-        System.out.println();
-    }
-}
-
-
-
-class RandomGenerator {
-
-    public String generateRandomString(int length) {
-
-        String characters = "abcdefghijklmnopqrstuvwxyz";
-        StringBuilder sb = new StringBuilder();
-        Random random = new Random();
-
-        for (int i = 0; i < length; i++) {
-            int index = random.nextInt(characters.length());
-            sb.append(characters.charAt(index));
-        }
-
-        return sb.toString();
-    }
-
-    public String generateRandomStringINT(int length) {
-
-        String characters = "1234567890";
-        StringBuilder sb = new StringBuilder();
-        Random random = new Random();
-
-        for (int i = 0; i < length; i++) {
-            int index = random.nextInt(characters.length());
-            sb.append(characters.charAt(index));
-        }
-
-        return sb.toString();
-    }
-
-    public int generateRandomInteger(int min, int max) {
-
-        Random random = new Random();
-        return random.nextInt(max - min + 1) + min;
-    }
-
-    public double generateRandomDouble(double min, double max) {
-
-        Random random = new Random();
-        return min + (max - min) * random.nextDouble();
+        System.out.println("------------------------------------------------------------");
     }
 }

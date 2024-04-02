@@ -1,16 +1,20 @@
 import java.util.*;
 
+import Properties.RandomGenerator;
 import Properties.RankListCourse;
 import Properties.RankListGpa;
 import Properties.Student_info;
 
 public class Student {
     public static int student_cnt;
-
+    public static RandomGenerator random;
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        
 
         Map<Integer, Student_info> student = new HashMap<>();
+        random = new RandomGenerator();
+
         student_cnt = 1;
 
         Boolean running = true;
